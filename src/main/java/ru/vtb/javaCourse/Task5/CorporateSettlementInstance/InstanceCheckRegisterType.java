@@ -16,9 +16,8 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 @Component
-@Qualifier("instanceCheck")
 @Order(3)
-public class InstanceCheckRegisterType implements Consumer<InstanceRequest> {
+public class InstanceCheckRegisterType implements InstanceCheck {
     private final ProductRegisterTypeRepo productRegisterTypeRepo;
     private final HttpSession httpSession;
 

@@ -9,15 +9,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountController;
-import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountResponse;
-import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountService;
 import ru.vtb.javaCourse.Task5.CorporateSettlementInstance.InstanceController;
 import ru.vtb.javaCourse.Task5.CorporateSettlementInstance.InstanceResponse;
-import ru.vtb.javaCourse.Task5.CorporateSettlementInstance.InstanceService;
+import ru.vtb.javaCourse.Task5.Service.InstanceServiceImpl;
 import ru.vtb.javaCourse.Task5.Integration.IntegrationTestInstance;
 
-import java.util.List;
 import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -29,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Тестирование контроллера InstanceController")
 public class InstanceControllerTest {
     @MockBean
-    InstanceService instanceService;
+    InstanceServiceImpl instanceService;
     @Autowired
     MockMvc mockMvc;
     @Autowired

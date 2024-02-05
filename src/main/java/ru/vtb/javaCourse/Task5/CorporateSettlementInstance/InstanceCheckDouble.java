@@ -12,9 +12,8 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 @Component
-@Qualifier("instanceCheck")
 @Order(1)
-public class InstanceCheckDouble implements Consumer<InstanceRequest> {
+public class InstanceCheckDouble implements InstanceCheck {
     private final ProductRepo productRepo;
 
     @Autowired

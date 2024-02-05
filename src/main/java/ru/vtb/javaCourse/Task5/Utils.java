@@ -2,8 +2,10 @@ package ru.vtb.javaCourse.Task5;
 
 import jakarta.persistence.Table;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+@PropertySource(value = "classpath:application.properties")
 public class Utils {
     static private String schemaDB;
 

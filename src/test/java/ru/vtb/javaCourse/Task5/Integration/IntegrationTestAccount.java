@@ -17,16 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountController;
 import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountRequest;
 import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountResponse;
-import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountService;
-import ru.vtb.javaCourse.Task5.CorporateSettlementInstance.InstanceController;
-import ru.vtb.javaCourse.Task5.CorporateSettlementInstance.InstanceRequest;
-import ru.vtb.javaCourse.Task5.CorporateSettlementInstance.InstanceResponse;
 import ru.vtb.javaCourse.Task5.Entity.Product;
 import ru.vtb.javaCourse.Task5.Entity.ProductRegister;
 import ru.vtb.javaCourse.Task5.Repository.ProductRegisterRepo;
 import ru.vtb.javaCourse.Task5.Repository.ProductRepo;
-
-import javax.sql.DataSource;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

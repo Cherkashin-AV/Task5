@@ -15,9 +15,8 @@ import ru.vtb.javaCourse.Task5.Utils;
 import java.util.function.Consumer;
 
 @Component
-@Qualifier("accountCheck")
 @Order(2)
-public class AccountCheckCatalog implements Consumer<AccountRequest> {
+public class AccountCheckCatalog implements AccountCheck {
 
     private final ProductRepo productRepo;
     private final ProductRegisterTypeRepo registerTypeRepo;

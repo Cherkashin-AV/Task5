@@ -9,19 +9,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Qualifier;
+import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountCheck;
 import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountRequest;
 import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountResponse;
 import ru.vtb.javaCourse.Task5.Entity.*;
-import ru.vtb.javaCourse.Task5.Repository.AccountPoolRepo;
 import ru.vtb.javaCourse.Task5.Repository.ProductRegisterRepo;
-import ru.vtb.javaCourse.Task5.Repository.ProductRegisterTypeRepo;
-import ru.vtb.javaCourse.Task5.Repository.ProductRepo;
+import ru.vtb.javaCourse.Task5.Service.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
 
 import static org.mockito.Mockito.when;
 
@@ -29,15 +24,15 @@ import static org.mockito.Mockito.when;
 @DisplayName("Тестирование модуля AccountService")
 public class AccountServiceTest {
     @InjectMocks
-    private ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountService accountService;
+    private AccountServiceImpl accountService;
     @Mock
     private ProductRegisterRepo registerRepo;
     @Mock
-    private ProductRepo productRepo;
+    private InstanceServiceImpl productService;
     @Mock
-    private ProductRegisterTypeRepo registerTypeRepo;
+    private ProductRegisterTypeServiceImpl registerTypeService;
     @Mock
-    private AccountPoolRepo accountPoolRepo;
+    private AccountPoolServiceImpl accountPoolService;
 
     private AccountRequest getBaseAccountRequest() {
         AccountRequest accountRequest = new AccountRequest();
@@ -56,32 +51,10 @@ public class AccountServiceTest {
     }
 
     @Test
-    @DisplayName("Тестирование функции getAccountsPool")
-    public void getAccountsPool() {
-        AccountPoolKey existsAccountPoolKey = new AccountPoolKey("0022", "800", "15", "00", "type");
-        when(accountPoolRepo.findByAccountPoolKey(existsAccountPoolKey))
-                .thenReturn(Optional.of(new AccountsPool(1L, existsAccountPoolKey, new Accounts(List.of("123")))));
-        AccountsPool accountsPool = accountService.getAccountsPool(
-                existsAccountPoolKey.getBranchCode(),
-                existsAccountPoolKey.getCurrencyCode(),
-                existsAccountPoolKey.getMdmCode(),
-                existsAccountPoolKey.getPriorityCode(),
-                existsAccountPoolKey.getRegistryTypeCode());
-        Assertions.assertNotNull(accountsPool);
-        Assertions.assertThrows(ValidationException.class,
-                ()->accountService.getAccountsPool(
-                        "",
-                        existsAccountPoolKey.getCurrencyCode(),
-                        existsAccountPoolKey.getMdmCode(),
-                        existsAccountPoolKey.getPriorityCode(),
-                        existsAccountPoolKey.getRegistryTypeCode()));
-    }
-
-    @Test
     @DisplayName("Тестирование функции createProductRegister")
     public  void createProductRegister(){
         //Проверяем вызов проверок
-        accountService.setChecks(List.of((Consumer) (p)->{if (p==null) throw new ValidationException("");}));
+        accountService.setChecks(List.of((AccountCheck) (p)->{if (p==null) throw new ValidationException("");}));
         Assertions.assertThrows(ValidationException.class, ()-> accountService.createProductRegister(null));
 
         //Проверяем создание продукта
@@ -89,9 +62,9 @@ public class AccountServiceTest {
         ProductRegister register = new ProductRegister();
         register.setId(1L);
         AccountRequest accountRequest = getBaseAccountRequest();
-        when(productRepo.findById(Mockito.anyLong())).then((p)-> p==null?Optional.empty():Optional.of(new Product()));
-        when(accountPoolRepo.findByAccountPoolKey(Mockito.any())).then((p)-> p==null?Optional.empty():Optional.of(accountsPool));
-        when(registerTypeRepo.findByValue(Mockito.any())).then((p)-> p==null?Optional.empty():Optional.of(new ProductRegisterType()));
+        when(productService.findById(Mockito.anyLong())).then((p)-> new Product());
+        when(accountPoolService.getAccountsPool(Mockito.any(),Mockito.any(),Mockito.any(),Mockito.any(),Mockito.any())).then((p)-> accountsPool);
+        when(registerTypeService.findByValue(Mockito.any())).then((p)-> new ProductRegisterType());
         when(registerRepo.save(Mockito.any(ProductRegister.class))).then((p)->{
             ProductRegister r = p.getArgument(0);
             r.setId(1L);

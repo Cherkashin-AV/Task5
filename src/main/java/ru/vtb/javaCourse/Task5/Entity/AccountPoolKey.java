@@ -2,10 +2,7 @@ package ru.vtb.javaCourse.Task5.Entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -14,6 +11,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class AccountPoolKey implements Serializable {
     @Column(name = "branchcode")
     private String branchCode;

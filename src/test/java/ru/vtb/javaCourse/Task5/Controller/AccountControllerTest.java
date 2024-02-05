@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountController;
 import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountRequest;
 import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountResponse;
-import ru.vtb.javaCourse.Task5.CorporateSettlementAccount.AccountService;
+import ru.vtb.javaCourse.Task5.Service.AccountServiceImpl;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("Тестирование контроллера AccountController")
 public class AccountControllerTest {
     @MockBean
-    AccountService accountService;
+    AccountServiceImpl accountService;
     @Autowired
     MockMvc mockMvc;
     @Autowired

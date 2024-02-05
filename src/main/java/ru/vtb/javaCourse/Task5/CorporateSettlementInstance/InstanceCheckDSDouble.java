@@ -13,9 +13,8 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 @Component
-@Qualifier("instanceCheck")
 @Order(2)
-public class InstanceCheckDSDouble implements Consumer<InstanceRequest>{
+public class InstanceCheckDSDouble implements InstanceCheck{
     private final ProductRepo productRepo;
 
     @Autowired

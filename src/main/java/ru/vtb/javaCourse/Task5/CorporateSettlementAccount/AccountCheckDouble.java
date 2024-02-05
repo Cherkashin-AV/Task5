@@ -10,9 +10,8 @@ import ru.vtb.javaCourse.Task5.Repository.ProductRegisterRepo;
 import java.util.function.Consumer;
 
 @Component
-@Qualifier("accountCheck")
 @Order(1)
-public class AccountCheckDouble implements Consumer<AccountRequest> {
+public class AccountCheckDouble implements AccountCheck {
 
     private final ProductRegisterRepo registerRepo;
 
